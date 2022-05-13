@@ -4,7 +4,11 @@ using System.Text;
 
 namespace ConsoleManagmentApp.Enum
 {
-    enum Colllactions 
+    enum Catagories 
     {
+        Programing,
+        Desing,
+        SystemAdministration
+
     }
 }
