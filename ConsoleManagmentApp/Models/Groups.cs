@@ -5,47 +5,45 @@ using System.Text;
 
 namespace ConsoleManagmentApp.Models
 {
-    class Groups
+    class Group
     {
         public string No;
         public byte  Limit;
         public Catagories Catagory;
         public bool IsOnline;
-        List<Student> StudentList = new List<Student>();
+        List<Group> GroupList = new List<Group>();
+        public static int count = 100;
+        public static int groupcount;
 
-        public Groups(string no, Catagories catagory)
+        public Group(string no, Catagories catagory)
         {
             No = no;
             Catagory = catagory;
             IsOnline = false;
 
         }
-        public List<Student>Students 
-        {
-            get => StudentList;
-
+        public List<Group>CheckList
+        { 
+            get=>GroupList;
             set
             {
                 if (!IsOnline)
                 {
                     Limit = 15;
-                    StudentList = new List<Student>(Limit);
+                    GroupList = new List<Group>(Limit);
+
                 }
-                else
+                else if (IsOnline)
                 {
                     Limit = 10;
-                    StudentList = new List<Student>(Limit);
+                    GroupList = new List<Group>(Limit);
                 }
             }
+        }
+      
         
         
-        }
-        public void Student()
-        {
-            foreach (Student student in StudentList)
-            {
-                Console.WriteLine($"Fullname: {student.FullName} \n Group No: {student.GroupNo} \n ID: {student.Id} \n Guaranty:{student.Guaranty} " );
-            }
-        }
+        
+       
     }
 }

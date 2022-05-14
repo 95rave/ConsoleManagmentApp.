@@ -10,6 +10,7 @@ namespace ConsoleManagmentApp
         public string GroupNo;
         public int Id;
         public bool Guaranty;
+        List<Student> StudentList = new List<Student>();
         
 
         
@@ -19,6 +20,13 @@ namespace ConsoleManagmentApp
             GroupNo = no;
             Id = id;
             Guaranty = guaranty;
+        }
+        public void StudentInfo()
+        {
+            foreach (Student student in StudentList)
+            {
+                Console.WriteLine($"Fullname: {student.FullName} \n Group No: {student.GroupNo} \n ID: {student.Id} \n Guaranty:{student.Guaranty} ");
+            }
         }
 
     }
