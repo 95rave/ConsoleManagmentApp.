@@ -5,24 +5,31 @@ using System.Text;
 
 namespace ConsoleManagmentApp.Models
 {
-    class Group
+    class Groups
     {
         public string No;
         public byte  Limit;
         public Catagories Catagory;
         public bool IsOnline;
-        List<Group> GroupList = new List<Group>();
+        List<Groups> GroupList = new List<Groups>();
         public static int count = 100;
         public static int groupcount;
 
-        public Group(string no, Catagories catagory)
+        public Groups(string no, Catagories catagory, bool isOnline)
         {
             No = no;
             Catagory = catagory;
             IsOnline = false;
 
         }
-        public List<Group>CheckList
+
+        public Groups(string no, Catagories catagory)
+        {
+            No = no;
+            Catagory = catagory;
+        }
+
+        public List<Groups>CheckList
         { 
             get=>GroupList;
             set
@@ -30,20 +37,15 @@ namespace ConsoleManagmentApp.Models
                 if (!IsOnline)
                 {
                     Limit = 15;
-                    GroupList = new List<Group>(Limit);
+                    GroupList = new List<Groups>(Limit);
 
                 }
                 else if (IsOnline)
                 {
                     Limit = 10;
-                    GroupList = new List<Group>(Limit);
+                    GroupList = new List<Groups>(Limit);
                 }
             }
-        }
-      
-        
-        
-        
-       
+        }      
     }
 }

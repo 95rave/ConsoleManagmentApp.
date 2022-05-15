@@ -11,6 +11,7 @@ namespace ConsoleManagmentApp
         public int Id;
         public bool Guaranty;
         List<Student> StudentList = new List<Student>();
+        public static int Count;
         
 
         
@@ -29,5 +30,6 @@ namespace ConsoleManagmentApp
             }
         }
 
+       
     }
 }
