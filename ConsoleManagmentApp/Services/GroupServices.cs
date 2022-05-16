@@ -2,7 +2,7 @@
 using ConsoleManagmentApp.Models;
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
+
 
 namespace ConsoleManagmentApp.Enum
 {
@@ -13,7 +13,7 @@ namespace ConsoleManagmentApp.Enum
         List<Student> StudentList = new List<Student>();
         private string no;
 
-        public List<Groups> Group { get => GroupList; }
+        public List<Groups> Groups { get => GroupList; }
 
         public List<Student> Studentlist { get => Studentlist; }
 
@@ -25,9 +25,10 @@ namespace ConsoleManagmentApp.Enum
         }
         public void ShowGroupList()
         {
-            if (Groups.count > 0)
+
+            if (Models.Groups.count > 0)
             {
-                foreach (Groups Grouplist in Group)
+                foreach (Groups Grouplist in Groups)
                 {
                     Console.WriteLine(Grouplist);
                 }
@@ -65,9 +66,12 @@ namespace ConsoleManagmentApp.Enum
         {
             if (Student.Count > 0)
             {
-                foreach (Student student in StudentList)
+                foreach (Groups groups in Groups)
                 {
-                    Console.WriteLine(student);
+                    foreach (Student student in StudentList)
+                    {
+                        Console.WriteLine($"Full Name: {student.FullName}  Group No: {student.GroupNo}  Point:{student.CheckPoint} Student Id: {Student.Id}");
+                    }
                 }
             }
             else
@@ -87,13 +91,13 @@ namespace ConsoleManagmentApp.Enum
 
             }
         }
-        public void CreateStudent(string name, string surname,string groupno)
+        public void CreateStudent(string fullName, string groupno,byte checkPoint)
         {
-            if (Group.Count > 0)
+            if (Groups.Count > 0)
             {
-                Student student = new Student(name, surname, groupno); 
+                Student student = new Student( fullName, groupno, checkPoint);
   
-                if (string.IsNullOrEmpty(student.FullName()) || string.IsNullOrWhiteSpace(student.FullName()))
+                if (string.IsNullOrEmpty(student.FullName) || string.IsNullOrWhiteSpace(student.FullName))
                 {
                     Console.WriteLine("Enter the correct student Fullname");
                 }
@@ -110,7 +114,7 @@ namespace ConsoleManagmentApp.Enum
                         Console.WriteLine("Group not found");
                         return;
                     }
-                    Console.WriteLine($"Name: {name} Surname: {surname} Group No: {groupno}");
+                    Console.WriteLine($"Full Name: {fullName}  Group No: {groupno}  Point:{checkPoint} Student Id: {Student.Id}");
                 }
 
             }
@@ -119,18 +123,30 @@ namespace ConsoleManagmentApp.Enum
                 Console.WriteLine("Failed to add student to group. Because this group does not exist.");
             }
         }
-        public void RemoveStudent(string name, string surname, string groupno)
+        public void RemoveStudent(int id,  string groupno)
         {
-            foreach (Student student in StudentList )
+
+            Groups group = FindGroups(groupno);
+            if (group==null)
             {
-                StudentList.Remove(student);
-                break;
+                Console.WriteLine("Group can not found");
             }
-            
+            if (group.StudentList==null)
+            {
+                Console.WriteLine("Student can not found");
+            }
+            if (Student.Id==id)
+            {
+                foreach (var item in group.StudentList)
+                {
+                    group.StudentList.Remove(item);
+                }
+            }
+            Console.WriteLine("Student deleted.");
         }
         public Groups FindGroups(string no)
         {
-            foreach (Groups group in Group)
+            foreach (Groups group in Groups)
             {
                 if (group.No.ToLower().Trim() == no.ToLower().Trim())
                 {

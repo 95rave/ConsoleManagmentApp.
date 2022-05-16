@@ -6,30 +6,25 @@ namespace ConsoleManagmentApp
 {
     class Student
     {
-        public string Name;
-        public string Surname;
+        public string FullName;
         public string GroupNo;
-        public bool Type;
+        public static int CountId;
         public static int Count;
-        static int Id;
+        public static int Id;
         byte _point;
         bool _guaranty;
         List<Student> StudentList = new List<Student>();
 
 
         
-        public Student(string name,string surname, string no)
+        public Student(string fullName,string no, byte checkPoint)
         {
-            Name = name;
-            Surname = surname;
+            FullName = fullName;
             GroupNo = no;
-            Type = false;
+            Id = ++Count;
+            CheckPoint = checkPoint;
         }
         
-        public string FullName()
-        {
-            return $"Name: {Name} Surname: {Surname} Group No: {GroupNo}";
-        }
 
         public byte CheckPoint 
         { get => _point;
@@ -38,7 +33,7 @@ namespace ConsoleManagmentApp
             {
                 if (value>80)
                 {
-                    Console.WriteLine(("Guaranteed student"));
+                    Console.WriteLine("Guaranteed student");
                     _point = value;
                     _guaranty = true;
                 }
@@ -56,9 +51,9 @@ namespace ConsoleManagmentApp
         }
         public override string ToString()
         {
-            return $"Student: \n {FullName()}\n Group No: {GroupNo}\n Is Guaranty: {CheckPoint} {_guaranty}";
+            return $"Student: \n {FullName}\n Group No: {GroupNo}\n Is Guaranty: {CheckPoint} {_guaranty} \nOnline: {CheckPoint} \nStudent Id:{Id}";
         }
-
+      
 
     }
 }

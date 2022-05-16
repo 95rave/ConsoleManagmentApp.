@@ -9,15 +9,15 @@ namespace ConsoleManagmentApp.Interface
 {
     interface IGroupServices
     {
-        public List<Groups>Group { get;  }
+        public List<Groups>Groups { get;  }
         public List <Student>Studentlist { get;  }
         void CreateGroup(Catagories catagory, bool isOnline);
         void ShowGroupList();
         void EditGroup(string oldgroupno, string newgroupno);
         void ShowAllStudentList();
         void ShowListOfStudentsInTheGroup();
-        void CreateStudent(string name, string surname, string groupno);
-        void RemoveStudent(string name, string surname, string groupno);
+        void CreateStudent(string fullName,  string groupno,byte checkPoint );
+        void RemoveStudent(int id , string groupno);
         
     }
 }

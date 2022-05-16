@@ -8,10 +8,11 @@ namespace ConsoleManagmentApp
         static void Main(string[] args)
         {
             byte selection;
+            Console.WriteLine("Welcome to the course.");
             do
             {
 
-                Console.WriteLine("Welcome to the course.");
+                
                 Console.WriteLine("1.Create new Group.");
                 Console.WriteLine("2.Show Group List.");
                 Console.WriteLine("3.Edit Group.");

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ConsoleManagmentApp.Models
 {
-    class Groups
+   class Groups
     {
         public string No;
         public Catagories Catagory;
@@ -25,15 +25,18 @@ namespace ConsoleManagmentApp.Models
             IsOnline = isOnline;
             count++;
             groupcount++;
-            Limit = IsOnline ? 10 : 15;
+            Limit = IsOnline ? 2 : 3;
 
             switch (catagory)
             {
                 case Catagories.Programing:
+                    No = $"P-" + groupcount;
                     break;
                 case Catagories.Desing:
+                    No = $"D-" + groupcount;
                     break;
                 case Catagories.SystemAdministration:
+                    No = $"SA-" + groupcount;
                     break;
                 default:
                     break;
@@ -85,7 +88,11 @@ namespace ConsoleManagmentApp.Models
         }
         public override string ToString()
         {
-            return $"{No} {Catagory}"; 
+            if (IsOnline==true)
+            {
+                return $"Group No: {No} Catagory: {Catagory} This Group in online";
+            }
+            return $"Group No: {No} Catagory: {Catagory} This Group in ofline";
         }
     }
 }
