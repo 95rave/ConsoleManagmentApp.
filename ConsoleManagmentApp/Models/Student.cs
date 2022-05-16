@@ -6,30 +6,59 @@ namespace ConsoleManagmentApp
 {
     class Student
     {
-        public string FullName;
+        public string Name;
+        public string Surname;
         public string GroupNo;
-        public int Id;
-        public bool Guaranty;
-        List<Student> StudentList = new List<Student>();
+        public bool Type;
         public static int Count;
-        
+        static int Id;
+        byte _point;
+        bool _guaranty;
+        List<Student> StudentList = new List<Student>();
+
 
         
-        public Student(string fullname, string no, int id, bool guaranty)
+        public Student(string name,string surname, string no)
         {
-            FullName = fullname;
+            Name = name;
+            Surname = surname;
             GroupNo = no;
-            Id = id;
-            Guaranty = guaranty;
+            Type = false;
         }
-        public void StudentInfo()
+        
+        public string FullName()
         {
-            foreach (Student student in StudentList)
+            return $"Name: {Name} Surname: {Surname} Group No: {GroupNo}";
+        }
+
+        public byte CheckPoint 
+        { get => _point;
+
+            set
             {
-                Console.WriteLine($"Fullname: {student.FullName} \n Group No: {student.GroupNo} \n ID: {student.Id} \n Guaranty:{student.Guaranty} ");
+                if (value>80)
+                {
+                    Console.WriteLine(("Guaranteed student"));
+                    _point = value;
+                    _guaranty = true;
+                }
+                else if (value < 80)
+                {
+                    Console.WriteLine("Not a guaranteed student");
+                    _point = value;
+                    _guaranty = false;
+                }
             }
         }
+        static Student()
+        {
+            Count = default;
+        }
+        public override string ToString()
+        {
+            return $"Student: \n {FullName()}\n Group No: {GroupNo}\n Is Guaranty: {CheckPoint} {_guaranty}";
+        }
 
-       
+
     }
 }

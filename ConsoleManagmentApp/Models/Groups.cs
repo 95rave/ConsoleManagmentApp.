@@ -8,25 +8,37 @@ namespace ConsoleManagmentApp.Models
     class Groups
     {
         public string No;
-        public byte  Limit;
         public Catagories Catagory;
         public bool IsOnline;
+        public int Limit;
+        byte _limit;
         List<Groups> GroupList = new List<Groups>();
         public static int count = 100;
         public static int groupcount;
 
-        public Groups(string no, Catagories catagory, bool isOnline)
-        {
-            No = no;
-            Catagory = catagory;
-            IsOnline = false;
 
-        }
-
-        public Groups(string no, Catagories catagory)
+        public List<Student> StudentList = new List<Student>();
+        public Groups(Catagories catagory, bool isOnline)
         {
-            No = no;
+
             Catagory = catagory;
+            IsOnline = isOnline;
+            count++;
+            groupcount++;
+            Limit = IsOnline ? 10 : 15;
+
+            switch (catagory)
+            {
+                case Catagories.Programing:
+                    break;
+                case Catagories.Desing:
+                    break;
+                case Catagories.SystemAdministration:
+                    break;
+                default:
+                    break;
+            }
+            count++;
         }
 
         public List<Groups>CheckList
@@ -36,16 +48,44 @@ namespace ConsoleManagmentApp.Models
             {
                 if (!IsOnline)
                 {
-                    Limit = 15;
-                    GroupList = new List<Groups>(Limit);
+                    _limit = 15;
+                    GroupList = new List<Groups>(_limit);
+                    Console.WriteLine("Online limt is 15 student");
 
                 }
                 else if (IsOnline)
                 {
-                    Limit = 10;
-                    GroupList = new List<Groups>(Limit);
+                    _limit = 10;
+                    GroupList = new List<Groups>(_limit);
+                    Console.WriteLine("Online limt is 10 student");
                 }
             }
-        }      
+        } 
+        
+	
+
+
+        public Groups()
+        {
+
+        }
+
+        static Groups()
+        {
+            count = 0;
+            groupcount = 100;
+        }
+
+        public void ShowStudent()
+        {
+           foreach(Student student in StudentList)
+            {
+                Console.WriteLine(student);
+            }
+        }
+        public override string ToString()
+        {
+            return $"{No} {Catagory}"; 
+        }
     }
 }

@@ -6,9 +6,10 @@ namespace ConsoleManagmentApp.Enum
 {
     enum Catagories 
     {
-        Programing,
+        Programing=1,
         Desing,
         SystemAdministration
+
 
     }
 }

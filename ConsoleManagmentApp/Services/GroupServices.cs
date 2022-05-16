@@ -11,56 +11,34 @@ namespace ConsoleManagmentApp.Enum
         List<Groups> GroupList = new List<Groups>();
        
         List<Student> StudentList = new List<Student>();
+        private string no;
 
         public List<Groups> Group { get => GroupList; }
 
-        public string CreateGroup(string no, Catagories catagory )
-        {
-            if (string.IsNullOrEmpty(no) || string.IsNullOrWhiteSpace(no))
-            {
-                return "Enter the correct group number";
-            }
-            Groups group = new Groups(no, catagory);
-            if (Groups.groupcount >= 0)
-            {
-                Groups.groupcount++;
-                GroupList.Add(group);
-                return $" {group.No} is succesfully";
+        public List<Student> Studentlist { get => Studentlist; }
 
-            }
-            foreach (Groups groups in GroupList)
-            {
-                if (!string.IsNullOrEmpty(no) || string.IsNullOrWhiteSpace(no))
-                {
-                    GroupList.Add(group);
-                    return $" {group.No} is succesfully";
-                }
-            }
-            return "Group can't created";
+        public void CreateGroup(Catagories catagory, bool isOnline)
+        {
+            Groups group = new Groups(catagory, isOnline);
+            GroupList.Add(group);
+            Console.WriteLine(group);
         }
-
-       
-
-        public void CreateStudent(string fullname, string no, int id,bool guaranty)
+        public void ShowGroupList()
         {
-            Student student = new Student(fullname,no,id,guaranty);
-            if (string.IsNullOrEmpty(fullname)||string.IsNullOrWhiteSpace(fullname))
+            if (Groups.count > 0)
             {
-                Console.WriteLine("Enter the student's name correctly");
+                foreach (Groups Grouplist in Group)
+                {
+                    Console.WriteLine(Grouplist);
+                }
             }
             else
             {
-                Console.WriteLine($"{student.FullName()}");
-                StudentList.Add(student);
+                Console.WriteLine("There is no group");
             }
-            
-            
         }
 
-        public void CreateStudent(string fullname, string no, int id)
-        {
-            throw new NotImplementedException();
-        }
+
 
         public void EditGroup(string oldgroupno, string newgroupno)
         {
@@ -79,18 +57,10 @@ namespace ConsoleManagmentApp.Enum
             }
             
         }
-        public Groups FindGroups(string no)
-        {
-            foreach (Groups group in Group)
-            {
-                if (group.No.ToLower().Trim() == no.ToLower().Trim())
-                {
-                    return group;
-                }
-                return null;
-            }
 
-        }
+
+
+
         public void ShowAllStudentList()
         {
             if (Student.Count > 0)
@@ -106,33 +76,80 @@ namespace ConsoleManagmentApp.Enum
             }
         }
 
-        public void ShowGroupList()
-        {
-            if (Groups.count>0)
-            {
-                foreach (Groups Grouplist in Group)
-                {
-                    Console.WriteLine(Grouplist);
-                }
-            }
-            else
-            {
-                Console.WriteLine("There is no group");
-            }
-        }
+       
 
         public void ShowListOfStudentsInTheGroup()
         {
+
             foreach (Student student in StudentList)
             {
                 Console.WriteLine(student);
+
             }
         }
-        public void RemoveStudent()
+        public void CreateStudent(string name, string surname,string groupno)
         {
-            throw new NotImplementedException();
-        }
+            if (Group.Count > 0)
+            {
+                Student student = new Student(name, surname, groupno); 
+  
+                if (string.IsNullOrEmpty(student.FullName()) || string.IsNullOrWhiteSpace(student.FullName()))
+                {
+                    Console.WriteLine("Enter the correct student Fullname");
+                }
+                else
+                {
+                    Groups group = GetGroup(groupno);
+                    if (group == null)
+                    {
+                        Console.WriteLine("Group not found");
+                        return;
+                    }
+                    if (group.StudentList.Count >= group.Limit)
+                    {
+                        Console.WriteLine("Group not found");
+                        return;
+                    }
+                    Console.WriteLine($"Name: {name} Surname: {surname} Group No: {groupno}");
+                }
 
+            }
+            else
+            {
+                Console.WriteLine("Failed to add student to group. Because this group does not exist.");
+            }
+        }
+        public void RemoveStudent(string name, string surname, string groupno)
+        {
+            foreach (Student student in StudentList )
+            {
+                StudentList.Remove(student);
+                break;
+            }
+            
+        }
+        public Groups FindGroups(string no)
+        {
+            foreach (Groups group in Group)
+            {
+                if (group.No.ToLower().Trim() == no.ToLower().Trim())
+                {
+                    return group;
+                }
+            }
+            return null;
+        }
+        Groups GetGroup(string groupno)
+        {
+            foreach (Groups group in GroupList)
+            {
+                if (group.No==groupno)
+                {
+                    return group;
+                }
+            }
+            return null;
+        }
     }
 
 
